@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
+import './index.css';
 
 Vue.config.productionTip = false
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+/* eslint-disable no-new */
+new Vue({ el: '#app', render: h => h(App) })
