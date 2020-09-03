@@ -30,7 +30,7 @@ export default {
      * @param markdown 初始Markdown文本
      * @param themeName 主题名称
      * @param themeData 主题数据
-    */
+     */
     initialization(markdown, themeName, themeData) {
       monaco.languages.register({ id: "markdownEx" });
       monaco.languages.setMonarchTokensProvider("markdownEx", language);
@@ -39,16 +39,16 @@ export default {
         if (themeData) {
           monaco.editor.defineTheme(themeName, themeData);
         }
-        this.$store.commit('updateTheme',themeName);
+        this.$store.commit("updateTheme", themeName);
         editorConfig.theme = themeName;
       } else {
-        let theme=require('../lib/markdownEx-theme.js').default;
+        let theme = require("../lib/markdownEx-theme.js").default;
         monaco.editor.defineTheme("acrmd", theme);
-        this.$store.commit('updateTheme','acrmd');
+        this.$store.commit("updateTheme", "acrmd");
       }
-      if(markdown){
-        editorConfig.value=markdown;
-        this.$store.dispatch('updateDisplay',markdown);
+      if (markdown) {
+        editorConfig.value = markdown;
+        this.$store.dispatch("updateDisplay", markdown);
       }
       this.mdEditor = monaco.editor.create(
         this.$refs.editorContainer,
@@ -56,7 +56,6 @@ export default {
       );
       this.mdEditor.onDidChangeModelContent(this.onContentChanged);
       window.Editor = this;
-      window.monaco = this.mdEditor;
       actions.forEach((act) => {
         this.mdEditor.addAction(act);
       });
@@ -145,7 +144,7 @@ export default {
   overflow: hidden;
   height: 100vh;
 }
-.monaco-editor{
-  padding-top:10px !important;
+.monaco-editor {
+  padding-top: 10px !important;
 }
 </style>
