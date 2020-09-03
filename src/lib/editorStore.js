@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
-import * as MarkdownIt from 'markdown-it';
+import {previewConfig} from '../lib/previewConfig.js';
 
 Vue.use(Vuex)
 
@@ -8,7 +8,8 @@ let editorStore=new Vuex.Store({
     state:{
         markdown:'',
         html:'',
-        markdownIt:new MarkdownIt(),
+        markdownIt:previewConfig.getMarkdownItParser(),
+        theme:'',
     },
     mutations:{
         updateMarkdown(state,content){
@@ -16,7 +17,9 @@ let editorStore=new Vuex.Store({
                 content=window.Editor.getContent();
             state.markdown=content;
             state.html = state.markdownIt.render(content);
-            console.log(state.html);
+        },
+        updateTheme(state,themeName){
+            state.theme=themeName;
         }
     },
     actions:{

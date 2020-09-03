@@ -6,7 +6,7 @@
 import * as monaco from "monaco-editor";
 import language from "../lib/markdownEx-language.js";
 import langConfig from "../lib/markdownEx-config.js";
-import theme from "../lib/markdownEx-theme.js";
+//import theme from "../lib/markdownEx-theme.js";
 import editorConfig from "../lib/editorConfig.js";
 import { actions, textEffect } from "../lib/editorAction.js";
 import { notifyPack } from "../models/notifyPack.js";
@@ -14,22 +14,7 @@ import { errorPack } from "../models/errorPack.js";
 export default {
   name: "editor",
   mounted() {
-    monaco.languages.register({ id: "markdownEx" });
-    monaco.languages.setMonarchTokensProvider("markdownEx", language);
-    monaco.languages.setLanguageConfiguration("markdownEx", langConfig);
-    monaco.editor.defineTheme("acrmd", theme);
-    this.mdEditor = monaco.editor.create(
-      this.$refs.editorContainer,
-      editorConfig
-    );
-    this.mdEditor.onDidChangeModelContent(this.onContentChanged);
-    window.Editor = this;
-    window.monaco = this.mdEditor;
-    actions.forEach((act) => {
-      this.mdEditor.addAction(act);
-    });
-    //window.external.notify(notifyPack.createPackJson('editorLoaded',''))
-    console.log(notifyPack.createPackJson("editorLoaded", ""));
+    this.initialization();
   },
   data() {
     return {
@@ -37,10 +22,50 @@ export default {
     };
   },
   methods: {
-    onContentChanged(){
-      console.log('yo!');
-      this.$store.dispatch('updateDisplay');
+    /**文本变动处理*/
+    onContentChanged() {
+      this.$store.dispatch("updateDisplay");
     },
+    /** 初始化编辑器
+     * @param markdown 初始Markdown文本
+     * @param themeName 主题名称
+     * @param themeData 主题数据
+    */
+    initialization(markdown, themeName, themeData) {
+      monaco.languages.register({ id: "markdownEx" });
+      monaco.languages.setMonarchTokensProvider("markdownEx", language);
+      monaco.languages.setLanguageConfiguration("markdownEx", langConfig);
+      if (themeName) {
+        if (themeData) {
+          monaco.editor.defineTheme(themeName, themeData);
+        }
+        this.$store.commit('updateTheme',themeName);
+        editorConfig.theme = themeName;
+      } else {
+        let theme=require('../lib/markdownEx-theme.js').default;
+        monaco.editor.defineTheme("acrmd", theme);
+        this.$store.commit('updateTheme','acrmd');
+      }
+      if(markdown){
+        editorConfig.value=markdown;
+        this.$store.dispatch('updateDisplay',markdown);
+      }
+      this.mdEditor = monaco.editor.create(
+        this.$refs.editorContainer,
+        editorConfig
+      );
+      this.mdEditor.onDidChangeModelContent(this.onContentChanged);
+      window.Editor = this;
+      window.monaco = this.mdEditor;
+      actions.forEach((act) => {
+        this.mdEditor.addAction(act);
+      });
+      //window.external.notify(notifyPack.createPackJson('editorLoaded',''))
+      console.log(notifyPack.createPackJson("editorLoaded", ""));
+    },
+    /**执行操作
+     * @param actId 操作ID
+     */
     excuteAction(actId) {
       let action = this.mdEditor.getAction(actId);
       if (action)
@@ -58,26 +83,35 @@ export default {
             console.log(notifyPack.createPackJson("excuteActionFailed", msg));
           });
     },
+    /**获取编辑器的全部可执行操作 */
     getActions() {
       if (actions && actions.length > 0) {
         let result = JSON.stringify(actions);
         return result;
       }
-      return '[]';
+      return "[]";
     },
+    /**设置编辑器文本
+     * @param str 输入文本
+     */
     setContent(str) {
       if (this.mdEditor) {
         let model = this.mdEditor.getModel();
         model.setValue(str);
       }
     },
-    getContent(){
-      if(this.mdEditor){
-        let v=this.mdEditor.getModel().getValue();
+    /**获取编辑器文本 */
+    getContent() {
+      if (this.mdEditor) {
+        let v = this.mdEditor.getModel().getValue();
         return v;
       }
-      return '';
+      return "";
     },
+    /**定义主题
+     * @param themeName 主题名称
+     * @param themeJson 主题数据
+     */
     defineTheme(themeName, themeJson) {
       try {
         let themeObj = JSON.parse(themeJson);
@@ -90,6 +124,9 @@ export default {
         console.log(notifyPack.createPackJson("defineThemeFailed", msg));
       }
     },
+    /**设置主题
+     * @param themeName 主题名称
+     */
     setTheme(themeName) {
       try {
         this.mdEditor.setTheme(themeName);
@@ -107,5 +144,8 @@ export default {
 .editorContainer {
   overflow: hidden;
   height: 100vh;
+}
+.monaco-editor{
+  padding-top:10px !important;
 }
 </style>
