@@ -30,7 +30,7 @@ let theme = {
             token: "markdown.table.header",
         },
 
-        //---------------Line string colors------------------
+        //---------------Line string colors----------------
         {
             foreground: "66cc33",
             token: "string",
