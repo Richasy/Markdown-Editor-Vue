@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import '../style/acrmd.css';
+//import '../style/acrmd.css';
 import "highlight.js/styles/dracula.css";
 export default {
     

@@ -14,7 +14,11 @@ import { errorPack } from "../models/errorPack.js";
 export default {
   name: "editor",
   mounted() {
-    this.initialization();
+    window.Editor = this;
+    this.$refs.editorContainer.addEventListener('contextmenu',function(e){
+      window.external.notify(notifyPack.createPackJson('contextMenu',''));
+    })
+    //this.initialization();
   },
   data() {
     return {
@@ -25,6 +29,7 @@ export default {
     /**文本变动处理*/
     onContentChanged() {
       this.$store.dispatch("updateDisplay");
+      window.external.notify(notifyPack.createPackJson('contentChanged',''));
     },
     onScrollChanged(e) {
       if (window.app.displayType == "split") {
@@ -50,8 +55,9 @@ export default {
         editOptions=JSON.parse(inputOption);
       else
         editOptions=inputOption;
-      let themeName=editOptions.themeName;
+      let themeName=editOptions.theme;
       if (themeName) {
+        console.log('yo');
         if (themeData && themeName!='vs' && themeName!='vs-dark') {
           monaco.editor.defineTheme(themeName, themeData);
         }
@@ -60,28 +66,30 @@ export default {
       } else {
         let theme = require("../lib/markdownEx-theme.js").default;
         monaco.editor.defineTheme("acrmd", theme);
+        editOptions.theme='acrmd';
         this.$store.commit("updateTheme", "acrmd");
       }
       if (markdown) {
-        //editorConfig.value = markdown;
+        editOptions.value = markdown;
         this.$store.dispatch("updateDisplay", markdown);
       }
       editOptions.contextmenu=false;
       editOptions.quickSuggestions=false;
       editOptions.wordWrap='on';
       editOptions.stopRenderingLineAfter=-1;
+      editOptions.language='markdownEx';
       this.mdEditor = monaco.editor.create(
         this.$refs.editorContainer,
         editOptions
       );
       this.mdEditor.onDidChangeModelContent(this.onContentChanged);
       this.mdEditor.onDidScrollChange(e=>this.onScrollChanged(e));
-      window.Editor = this;
+      
       actions.forEach((act) => {
         this.mdEditor.addAction(act);
       });
-      //window.external.notify(notifyPack.createPackJson('editorLoaded',''))
-      console.log(notifyPack.createPackJson("editorLoaded", ""));
+      window.external.notify(notifyPack.createPackJson('editorLoaded',''))
+      //console.log(notifyPack.createPackJson("editorLoaded", ""));
     },
     /**执行操作
      * @param actId 操作ID
@@ -92,15 +100,15 @@ export default {
         action
           .run()
           .then(() => {
-            //window.external.notify(notifyPack.createPackJson('excuteActionSuccess',actId))
-            console.log(
-              notifyPack.createPackJson("excuteActionSuccess", actId)
-            );
+            window.external.notify(notifyPack.createPackJson('excuteActionSuccess',actId))
+            // console.log(
+            //   notifyPack.createPackJson("excuteActionSuccess", actId)
+            // );
           })
           .catch((err) => {
             let msg = errorPack.createJson(err, "excuteAction", actId);
-            //window.external.notify(notifyPack.createPackJson('excuteActionFailed',msg))
-            console.log(notifyPack.createPackJson("excuteActionFailed", msg));
+            window.external.notify(notifyPack.createPackJson('excuteActionFailed',msg))
+            //console.log(notifyPack.createPackJson("excuteActionFailed", msg));
           });
     },
     /**获取编辑器的全部可执行操作 */
@@ -136,12 +144,12 @@ export default {
       try {
         let themeObj = JSON.parse(themeJson);
         this.mdEditor.defineTheme(themeName, themeObj);
-        //window.external.notify(notifyPack.createPackJson('defineThemeSuccess',themeName))
-        console.log(notifyPack.createPackJson("defineThemeSuccess", themeName));
+        window.external.notify(notifyPack.createPackJson('defineThemeSuccess',themeName))
+        //console.log(notifyPack.createPackJson("defineThemeSuccess", themeName));
       } catch (err) {
         let msg = errorPack.createJson(err, "defineTheme", themeName);
-        //window.external.notify(notifyPack.createPackJson('defineThemeFailed',msg))
-        console.log(notifyPack.createPackJson("defineThemeFailed", msg));
+        window.external.notify(notifyPack.createPackJson('defineThemeFailed',msg))
+        //console.log(notifyPack.createPackJson("defineThemeFailed", msg));
       }
     },
     /**设置主题
@@ -152,8 +160,8 @@ export default {
         this.mdEditor.setTheme(themeName);
       } catch (err) {
         let msg = errorPack.createJson(err, "setTheme", themeName);
-        //window.external.notify(notifyPack.createPackJson('setThemeFailed',msg))
-        console.log(notifyPack.createPackJson("setThemeFailed", msg));
+        window.external.notify(notifyPack.createPackJson('setThemeFailed',msg))
+        //console.log(notifyPack.createPackJson("setThemeFailed", msg));
       }
     },
     /**更新配置项 */

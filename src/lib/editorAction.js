@@ -1,4 +1,5 @@
 import * as monaco from 'monaco-editor';
+import { notifyPack } from '../models/notifyPack';
 
 function textEffect(editor, effect) {
     var select = editor.getSelection();
@@ -311,9 +312,9 @@ let actions = [
         attachKeys:['Ctrl','S'],
         contextMenuOrder: 3,
         run: function (ed) {
-            let text=ed.getModel().getValue();
-            console.log(text);
-            // TODO: save text
+            //let text=ed.getModel().getValue();
+            //console.log(text);
+            window.external.notify(notifyPack.createPackJson('save',''));
         }
     }
 ]

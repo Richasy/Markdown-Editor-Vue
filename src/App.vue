@@ -43,8 +43,8 @@ export default {
     window.addEventListener('resize',function(e){
       self.app.onResize();
     });
-    //window.external.notify(notifyPack.createPackJson('appLoaded',''))
-    console.log(notifyPack.createPackJson("appLoaded", ""));
+    window.external.notify(notifyPack.createPackJson('appLoaded',''))
+    //console.log(notifyPack.createPackJson("appLoaded", ""));
   },
   methods: {
     onResize() {
