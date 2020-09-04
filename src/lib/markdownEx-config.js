@@ -13,7 +13,7 @@ let config = {
         { open: '(', close: ')' },
         { open: '<', close: '>', notIn: ['string'] },
         { open: '`', close: '`', notIn: ['string'] },
-        { open: '```', close: '\n```', notIn: ['string'] },
+        { open: '```', close: '\n\n```', notIn: ['string'] },
         { open: '（', close: '）' },
         { open: '【', close: '】' },
         { open: '《', close: '》' },

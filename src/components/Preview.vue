@@ -20,6 +20,9 @@ export default {
     },
   },
   methods: {
+    /**设置css
+     * @param cssString 输入的css文本
+     */
     setCss(cssString) {
       let style = document.querySelector(`style#editorThemeStyle`);
       if (style) {
@@ -31,6 +34,14 @@ export default {
         document.head.appendChild(style);
       }
     },
+    /**设置内容（输入markdown文本） */
+    setContent(input){
+      this.$store.commit('updateMarkdown',input);
+    },
+    /**获取内容（获取的是html） */
+    getContent(){
+      return this.html;
+    }
   },
 };
 </script>

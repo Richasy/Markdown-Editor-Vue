@@ -7,7 +7,7 @@ import * as monaco from "monaco-editor";
 import language from "../lib/markdownEx-language.js";
 import langConfig from "../lib/markdownEx-config.js";
 //import theme from "../lib/markdownEx-theme.js";
-import editorConfig from "../lib/editorConfig.js";
+//import editorConfig from "../lib/editorConfig.js";
 import { actions, textEffect } from "../lib/editorAction.js";
 import { notifyPack } from "../models/notifyPack.js";
 import { errorPack } from "../models/errorPack.js";
@@ -41,28 +41,38 @@ export default {
      * @param themeName 主题名称
      * @param themeData 主题数据
      */
-    initialization(markdown, themeName, themeData) {
+    initialization(markdown, inputOption, themeData) {
       monaco.languages.register({ id: "markdownEx" });
       monaco.languages.setMonarchTokensProvider("markdownEx", language);
       monaco.languages.setLanguageConfiguration("markdownEx", langConfig);
+      let editOptions;
+      if(typeof(inputOption)=='string')
+        editOptions=JSON.parse(inputOption);
+      else
+        editOptions=inputOption;
+      let themeName=editOptions.themeName;
       if (themeName) {
-        if (themeData) {
+        if (themeData && themeName!='vs' && themeName!='vs-dark') {
           monaco.editor.defineTheme(themeName, themeData);
         }
         this.$store.commit("updateTheme", themeName);
-        editorConfig.theme = themeName;
+        //editorConfig.theme = themeName;
       } else {
         let theme = require("../lib/markdownEx-theme.js").default;
         monaco.editor.defineTheme("acrmd", theme);
         this.$store.commit("updateTheme", "acrmd");
       }
       if (markdown) {
-        editorConfig.value = markdown;
+        //editorConfig.value = markdown;
         this.$store.dispatch("updateDisplay", markdown);
       }
+      editOptions.contextmenu=false;
+      editOptions.quickSuggestions=false;
+      editOptions.wordWrap='on';
+      editOptions.stopRenderingLineAfter=-1;
       this.mdEditor = monaco.editor.create(
         this.$refs.editorContainer,
-        editorConfig
+        editOptions
       );
       this.mdEditor.onDidChangeModelContent(this.onContentChanged);
       this.mdEditor.onDidScrollChange(e=>this.onScrollChanged(e));
