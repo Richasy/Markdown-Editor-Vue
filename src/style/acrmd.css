@@ -67,13 +67,10 @@
     margin: 1rem 0;
   }
   
-  #previewContainer a, #previewContainer p a code {
-    color: #fff;
-  }
-  
   #previewContainer a {
     font-weight: 500;
     text-decoration: none;
+    color: cornflowerblue;
   }
   
   #previewContainer hr {
@@ -93,14 +90,14 @@
     margin: 0 auto;
     background-color: #2D7CD8;
     color: #fff;
-    padding: .4rem;
-    display: block;
-    font-style: italic;
+    padding: .2rem;
+    border-radius: 3px;
   }
   
   #previewContainer code, #previewContainer pre {
     border-radius: 3px;
     color: inherit;
+    font-family: ui-monospace;
   }
   
   #previewContainer code {

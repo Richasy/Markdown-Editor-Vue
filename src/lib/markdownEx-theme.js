@@ -10,7 +10,11 @@ let theme = {
         },
         {
             foreground: "00d2d3",
-            token: "markdown.quote",
+            token: "markdown.quote.sign",
+            fontStyle: "italic",
+        },
+        {
+            token: "markdown.quote.detail",
             fontStyle: "italic",
         },
         {

@@ -16,6 +16,7 @@ let previewConfig = {
             .use(require("markdown-it-mark"))
             .use(require("markdown-it-sup"))
             .use(require("markdown-it-sub"))
+            .use(require("markdown-it-ins"))
             .use(require("markdown-it-checkbox"))
             .use(require("markdown-it-abbr"))
             .use(require("markdown-it-toc-and-anchor").default, {
@@ -37,11 +38,14 @@ let previewConfig = {
             env,
             self
         ) {
-            var aIndex = tokens[idx].attrIndex("target");
-            if (aIndex < 0) {
-                tokens[idx].attrPush(["target", "_blank"]);
-            } else {
-                tokens[idx].attrs[aIndex][1] = "_blank";
+            let href = tokens[idx].attrGet('href');
+            if (href[0] != '#') {
+                var aIndex = tokens[idx].attrIndex("target");
+                if (aIndex < 0) {
+                    tokens[idx].attrPush(["target", "_blank"]);
+                } else {
+                    tokens[idx].attrs[aIndex][1] = "_blank";
+                }
             }
             return defaultRender(tokens, idx, options, env, self);
         };
@@ -50,4 +54,6 @@ let previewConfig = {
     }
 }
 
-export {previewConfig}
+export {
+    previewConfig
+}

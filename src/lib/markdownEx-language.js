@@ -32,7 +32,7 @@ let language = {
             [/^\s*((\*[ ]?)+)\s*$/, 'meta.separator'],
 
             // quote
-            [/^\s*>+/, 'markdown.quote'],
+            [/^(\s*>+)(.*)/, ['markdown.quote.sign','markdown.quote.detail']],
 
             // list (starting with * or number)
             [/^\s*([\*\-+:]|\d+\.)\s/, 'markdown.list'],
@@ -113,8 +113,8 @@ let language = {
             [/\~\~([^\\~]|@escapes|\~(?!\~))+\~\~/, 'markdown.strikethrough'],
             [/\+\+([^\\+]|@escapes|\+(?!\+))+\+\+/, 'markdown.insert'],
             [/\=\=([^\\=]|@escapes|\=(?!\=))+\=\=/, 'markdown.mark'],
-            [/\~([^\\~]|@escapes|\~(?!\~))+\~/, 'markdown.subscript'],
-            [/\^([^\\^]|@escapes|\^(?!\^))+\^/, 'markdown.superscript'],
+            [/\~([^\\~]|@escapes)+\~/, 'markdown.subscript'],
+            [/\^([^\\^]|@escapes)+\^/, 'markdown.superscript'],
 
             // links
             [/\{+[^}]+\}+/, 'markdown.target'],

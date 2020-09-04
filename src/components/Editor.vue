@@ -26,6 +26,16 @@ export default {
     onContentChanged() {
       this.$store.dispatch("updateDisplay");
     },
+    onScrollChanged(e) {
+      if (window.app.displayType == "split") {
+        let preview = document.getElementById("previewContainer");
+        if (preview) {
+          let xi=e.scrollTop/e.scrollHeight;
+          let top=xi*preview.scrollHeight;
+          preview.scrollTop=top;
+        }
+      }
+    },
     /** 初始化编辑器
      * @param markdown 初始Markdown文本
      * @param themeName 主题名称
@@ -55,6 +65,7 @@ export default {
         editorConfig
       );
       this.mdEditor.onDidChangeModelContent(this.onContentChanged);
+      this.mdEditor.onDidScrollChange(e=>this.onScrollChanged(e));
       window.Editor = this;
       actions.forEach((act) => {
         this.mdEditor.addAction(act);
@@ -135,6 +146,13 @@ export default {
         console.log(notifyPack.createPackJson("setThemeFailed", msg));
       }
     },
+    /**更新配置项 */
+    updateOptions(input) {
+      let options;
+      if (typeof input == "string") options = JSON.parse(input);
+      else options = input;
+      this.mdEditor.updateOptions(options);
+    },
   },
 };
 </script>
@@ -143,8 +161,5 @@ export default {
 .editorContainer {
   overflow: hidden;
   height: 100vh;
-}
-.monaco-editor {
-  padding-top: 10px !important;
 }
 </style>
