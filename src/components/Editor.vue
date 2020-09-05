@@ -19,7 +19,7 @@ export default {
       e.preventDefault();
       let x=e.pageX;
       let y=e.pageY;
-      window.external.notify(notifyPack.createPackJson('contextMenu',{x,y}));
+      //window.external.notify(notifyPack.createPackJson('contextMenu',{x,y}));
     })
     //this.initialization();
   },
@@ -32,7 +32,7 @@ export default {
     /**文本变动处理*/
     onContentChanged() {
       this.$store.dispatch("updateDisplay");
-      window.external.notify(notifyPack.createPackJson('contentChanged',''));
+      //window.external.notify(notifyPack.createPackJson('contentChanged',''));
     },
     onScrollChanged(e) {
       if (window.app.displayType == "split") {
@@ -85,14 +85,15 @@ export default {
         this.$refs.editorContainer,
         editOptions
       );
+      window.mdEditor=this.mdEditor;
       this.mdEditor.onDidChangeModelContent(this.onContentChanged);
       this.mdEditor.onDidScrollChange(e=>this.onScrollChanged(e));
       
       actions.forEach((act) => {
         this.mdEditor.addAction(act);
       });
-      window.external.notify(notifyPack.createPackJson('editorLoaded',''))
-      //console.log(notifyPack.createPackJson("editorLoaded", ""));
+      //window.external.notify(notifyPack.createPackJson('editorLoaded',''))
+      console.log(notifyPack.createPackJson("editorLoaded", ""));
     },
     /**执行操作
      * @param actId 操作ID
@@ -103,15 +104,15 @@ export default {
         action
           .run()
           .then(() => {
-            window.external.notify(notifyPack.createPackJson('excuteActionSuccess',actId))
+            //window.external.notify(notifyPack.createPackJson('excuteActionSuccess',actId))
             // console.log(
             //   notifyPack.createPackJson("excuteActionSuccess", actId)
             // );
           })
           .catch((err) => {
             let msg = errorPack.createJson(err, "excuteAction", actId);
-            window.external.notify(notifyPack.createPackJson('excuteActionFailed',msg))
-            //console.log(notifyPack.createPackJson("excuteActionFailed", msg));
+            //window.external.notify(notifyPack.createPackJson('excuteActionFailed',msg))
+            console.log(notifyPack.createPackJson("excuteActionFailed", msg));
           });
     },
     /**获取编辑器的全部可执行操作 */
@@ -147,12 +148,12 @@ export default {
       try {
         let themeObj = JSON.parse(themeJson);
         this.mdEditor.defineTheme(themeName, themeObj);
-        window.external.notify(notifyPack.createPackJson('defineThemeSuccess',themeName))
-        //console.log(notifyPack.createPackJson("defineThemeSuccess", themeName));
+        //window.external.notify(notifyPack.createPackJson('defineThemeSuccess',themeName))
+        console.log(notifyPack.createPackJson("defineThemeSuccess", themeName));
       } catch (err) {
         let msg = errorPack.createJson(err, "defineTheme", themeName);
-        window.external.notify(notifyPack.createPackJson('defineThemeFailed',msg))
-        //console.log(notifyPack.createPackJson("defineThemeFailed", msg));
+        //window.external.notify(notifyPack.createPackJson('defineThemeFailed',msg))
+        console.log(notifyPack.createPackJson("defineThemeFailed", msg));
       }
     },
     /**设置主题
@@ -163,8 +164,8 @@ export default {
         this.mdEditor.setTheme(themeName);
       } catch (err) {
         let msg = errorPack.createJson(err, "setTheme", themeName);
-        window.external.notify(notifyPack.createPackJson('setThemeFailed',msg))
-        //console.log(notifyPack.createPackJson("setThemeFailed", msg));
+        //window.external.notify(notifyPack.createPackJson('setThemeFailed',msg))
+        console.log(notifyPack.createPackJson("setThemeFailed", msg));
       }
     },
     /**更新配置项 */

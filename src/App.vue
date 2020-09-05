@@ -7,10 +7,10 @@
     v-on:resize="onResize"
   >
     <template slot="paneL">
-      <editor v-if="displayType=='editor'||displayType=='split'" />
+      <editor />
     </template>
-    <template slot="paneR">
-      <preview v-if="displayType=='preview'||displayType=='split'"/>
+    <template slot="paneR" v-if="displayType=='split'">
+      <preview />
     </template>
   </split-pane>
 </template>
@@ -40,17 +40,21 @@ export default {
   },
   mounted() {
     self.app = this;
-    window.addEventListener('resize',function(e){
+    window.addEventListener("resize", function (e) {
       self.app.onResize();
     });
-    window.external.notify(notifyPack.createPackJson('appLoaded',''))
-    //console.log(notifyPack.createPackJson("appLoaded", ""));
+    //window.external.notify(notifyPack.createPackJson("appLoaded", ""));
+    console.log(notifyPack.createPackJson("appLoaded", ""));
   },
   methods: {
-    onResize() {
-      if (window.Editor) {
-        window.Editor.mdEditor.layout();
+    onResize(e) {
+      if (window.mdEditor) {
+        window.mdEditor.layout();
       }
+      //if (e)
+        //window.external.notify(
+          //notifyPack.createPackJson("resize", e.toString())
+        //);
     },
     updateDisplay(displayInput) {
       let displayOptions;
@@ -61,6 +65,9 @@ export default {
       this.layoutOptions.minPercent = displayOptions.minPercent;
       this.layoutOptions.maxPercent = displayOptions.maxPercent;
       this.layoutOptions.defaultPercent = displayOptions.defaultPercent;
+      if (window.mdEditor) {
+        window.mdEditor.layout();
+      }
     },
   },
 };
