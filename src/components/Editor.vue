@@ -16,7 +16,10 @@ export default {
   mounted() {
     window.Editor = this;
     this.$refs.editorContainer.addEventListener('contextmenu',function(e){
-      window.external.notify(notifyPack.createPackJson('contextMenu',''));
+      e.preventDefault();
+      let x=e.pageX;
+      let y=e.pageY;
+      window.external.notify(notifyPack.createPackJson('contextMenu',{x,y}));
     })
     //this.initialization();
   },
