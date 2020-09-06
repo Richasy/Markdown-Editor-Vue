@@ -1,4 +1,4 @@
-# Vue Monaco Editor
+# Markdown Editor Vue
 
 这是一个实验性质的项目，用于进行[monaco-editor](https://microsoft.github.io/monaco-editor/)的研究。
 
