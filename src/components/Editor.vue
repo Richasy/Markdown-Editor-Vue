@@ -147,7 +147,7 @@ export default {
     defineTheme(themeName, themeJson) {
       try {
         let themeObj = JSON.parse(themeJson);
-        this.mdEditor.defineTheme(themeName, themeObj);
+        monaco.editor.defineTheme(themeName, themeObj);
         //window.external.notify(notifyPack.createPackJson('defineThemeSuccess',themeName))
         console.log(notifyPack.createPackJson("defineThemeSuccess", themeName));
       } catch (err) {
@@ -161,7 +161,7 @@ export default {
      */
     setTheme(themeName) {
       try {
-        this.mdEditor.setTheme(themeName);
+        monaco.editor.setTheme(themeName);
       } catch (err) {
         let msg = errorPack.createJson(err, "setTheme", themeName);
         //window.external.notify(notifyPack.createPackJson('setThemeFailed',msg))

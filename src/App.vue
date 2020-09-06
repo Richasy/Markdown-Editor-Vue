@@ -51,10 +51,9 @@ export default {
       if (window.mdEditor) {
         window.mdEditor.layout();
       }
-      //if (e)
-        //window.external.notify(
-          //notifyPack.createPackJson("resize", e.toString())
-        //);
+      if (e){
+        //window.external.notify(notifyPack.createPackJson("resize", e.toString()));
+      }
     },
     updateDisplay(displayInput) {
       let displayOptions;

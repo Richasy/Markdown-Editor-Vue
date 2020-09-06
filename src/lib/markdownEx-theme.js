@@ -114,18 +114,9 @@ let theme = {
             token: "constant.other",
         },
         {
-            foreground: "eeeeee",
-            token: "source.php.embedded.line",
-        },
-        {
             foreground: "d54e53",
             token: "variable",
         },
-        {
-            foreground: "d54e53",
-            token: "support.other.variable",
-        },
-
         {
             foreground: "d54e53",
             token: "entity.name.tag",
@@ -137,10 +128,6 @@ let theme = {
         {
             foreground: "d54e53",
             token: "meta.tag",
-        },
-        {
-            foreground: "d54e53",
-            token: "declaration.tag",
         },
         {
             foreground: "e78c45",
@@ -213,19 +200,11 @@ let theme = {
         },
         {
             foreground: "7aa6da",
-            token: "meta.function-call",
-        },
-        {
-            foreground: "7aa6da",
             token: "support.function",
         },
         {
             foreground: "7aa6da",
             token: "keyword.other.special-method",
-        },
-        {
-            foreground: "7aa6da",
-            token: "meta.block-level",
         },
         {
             foreground: "c397d8",
@@ -260,12 +239,38 @@ let theme = {
         },
     ],
     colors: {
-        "editor.background": "#1E1E1E",
-        "editor.foreground": "#D4D4D4",
-        "editor.inactiveSelectionBackground": "#3A3D41",
-        "editorIndentGuide.background": "#404040",
-        "editorIndentGuide.activeBackground": "#707070",
-        "editor.selectionHighlightBackground": "#ADD6FF26",
+        "editorIndentGuide.activeBackground": "#626772",
+        "editor.background": "#131313",
+        "editor.foreground": "#ABB2BF",
+        "editor.lineHighlightBackground": "#99BBFF0A",
+        "editor.selectionBackground": "#3E4451",
+        "editorCursor.foreground": "#528BFF",
+        "editor.findMatchHighlightBackground": "#528BFF3D",
+        "editorGroup.background": "#21252B",
+        "editorGroup.border": "#181A1F",
+        "editorGroupHeader.tabsBackground": "#21252B",
+        "editorIndentGuide.background": "#ABB2BF26",
+        "editorLineNumber.foreground": "#636D83",
+        "editorLineNumber.activeForeground": "#ABB2BF",
+        "editorWhitespace.foreground": "#ABB2BF26",
+        "editorRuler.foreground": "#ABB2BF26",
+        "editorHoverWidget.background": "#21252B",
+        "editorHoverWidget.border": "#181A1F",
+        "editorSuggestWidget.background": "#21252B",
+        "editorSuggestWidget.border": "#181A1F",
+        "editorSuggestWidget.selectedBackground": "#2C313A",
+        "editorWidget.background": "#21252B",
+        "editorWidget.border": "#3A3F4B",
+        "list.activeSelectionBackground": "#2C313A",
+        "list.activeSelectionForeground": "#D7DAE0",
+        "list.focusBackground": "#2C313A",
+        "list.hoverBackground": "#2C313A66",
+        "list.highlightForeground": "#D7DAE0",
+        "list.inactiveSelectionBackground": "#2C313A",
+        "list.inactiveSelectionForeground": "#D7DAE0",
+        "scrollbarSlider.background": "#4E566680",
+        "scrollbarSlider.activeBackground": "#747D9180",
+        "scrollbarSlider.hoverBackground": "#5A637580",
     },
 }
 

@@ -317,51 +317,51 @@ let actions = [
             //window.external.notify(notifyPack.createPackJson('save',''));
         }
     },
-    {
-        id: 'editor-copy',
-        label: 'Copy',
-        keybindings: [
-            monaco.KeyMod.CtrlCmd,
-            monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_C)
-        ],
-        contextMenuGroupId: 'operation',
-        attachKeys:['Ctrl','C'],
-        contextMenuOrder: 3.1,
-        run: function (ed) {
-            ed.focus();
-            document.execCommand('copy');
-        }
-    },
-    {
-        id: 'editor-cut',
-        label: 'Cut',
-        keybindings: [
-            monaco.KeyMod.CtrlCmd,
-            monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_X)
-        ],
-        contextMenuGroupId: 'operation',
-        attachKeys:['Ctrl','X'],
-        contextMenuOrder: 3.2,
-        run: function (ed) {
-            ed.focus();
-            document.execCommand('cut');
-        }
-    },
-    {
-        id: 'editor-paste',
-        label: 'Paste',
-        keybindings: [
-            monaco.KeyMod.CtrlCmd,
-            monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_V)
-        ],
-        contextMenuGroupId: 'operation',
-        attachKeys:['Ctrl','V'],
-        contextMenuOrder: 3.2,
-        run: function (ed) {
-            ed.focus();
-            document.execCommand('paste');
-        }
-    }
+    // {
+    //     id: 'editor-copy',
+    //     label: 'Copy',
+    //     keybindings: [
+    //         monaco.KeyMod.CtrlCmd,
+    //         monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_C)
+    //     ],
+    //     contextMenuGroupId: 'operation',
+    //     attachKeys:['Ctrl','C'],
+    //     contextMenuOrder: 3.1,
+    //     run: function (ed) {
+    //         ed.focus();
+    //         document.execCommand('copy');
+    //     }
+    // },
+    // {
+    //     id: 'editor-cut',
+    //     label: 'Cut',
+    //     keybindings: [
+    //         monaco.KeyMod.CtrlCmd,
+    //         monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_X)
+    //     ],
+    //     contextMenuGroupId: 'operation',
+    //     attachKeys:['Ctrl','X'],
+    //     contextMenuOrder: 3.2,
+    //     run: function (ed) {
+    //         ed.focus();
+    //         document.execCommand('cut');
+    //     }
+    // },
+    // {
+    //     id: 'editor-paste',
+    //     label: 'Paste',
+    //     keybindings: [
+    //         monaco.KeyMod.CtrlCmd,
+    //         monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_V)
+    //     ],
+    //     contextMenuGroupId: 'operation',
+    //     attachKeys:['Ctrl','V'],
+    //     contextMenuOrder: 3.2,
+    //     run: function (ed) {
+    //         ed.focus();
+    //         document.execCommand('paste');
+    //     }
+    // }
 ]
 
 export { textEffect, actions }
