@@ -4,7 +4,7 @@
 
 <script>
 //import '../style/acrmd.css';
-import "highlight.js/styles/dracula.css";
+//import "highlight.js/styles/dracula.css";
 export default {
     
   name: "preview",
@@ -20,6 +20,16 @@ export default {
     },
   },
   methods: {
+    /**设置主题
+     * @param theme 主题：light或dark
+     */
+    setTheme(theme){
+      if(theme.toLowerCase() == 'dark'){
+        import("highlight.js/styles/dracula.css");
+      }else{
+        import("highlight.js/styles/github-gist.css");
+      }
+    },
     /**设置css
      * @param cssString 输入的css文本
      */

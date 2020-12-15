@@ -130,6 +130,7 @@ export default {
       if (this.mdEditor) {
         let model = this.mdEditor.getModel();
         model.setValue(str);
+        this.mdEditor.setScrollTop(0);
       }
     },
     /**获取编辑器文本 */
